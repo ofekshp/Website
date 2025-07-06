@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const projects = [
   {
@@ -24,7 +24,7 @@ const projects = [
 const Projects = () => {
   const [startIndex, setStartIndex] = useState(0);
   const visibleCount = 3;
-  const cardWidth = 320 + 24; // 320px width + 24px gap (w-80 + gap)
+  const cardWidth = 320 + 24; // 320px + 24px margin
 
   const handleNext = () => {
     if (startIndex + visibleCount < projects.length) {
@@ -45,7 +45,7 @@ const Projects = () => {
     >
       <h2 className="text-3xl font-bold mb-10">Projects</h2>
 
-      <div className="flex items-center justify-center gap-4">
+      <div className="flex items-center justify-center space-x-4">
         <button
           onClick={handlePrev}
           disabled={startIndex === 0}
@@ -54,10 +54,12 @@ const Projects = () => {
           ←
         </button>
 
-        <div className="w-[1000px] overflow-hidden">
+        <div className="w-full max-w-[1032px] overflow-hidden relative">
           <div
-            className="flex transition-transform duration-500 ease-in-out"
-            style={{ transform: `translateX(-${startIndex * cardWidth}px)` }}
+            className="flex transition-transform duration-500 ease-in-out pr-3"
+            style={{
+              transform: `translateX(-${startIndex * cardWidth}px)`,
+            }}
           >
             {projects.map((project, index) => (
               <div
