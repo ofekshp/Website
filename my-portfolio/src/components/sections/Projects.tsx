@@ -25,20 +25,26 @@ const Projects = () => {
   const [startIndex, setStartIndex] = useState(0);
   const [cardWidth, setCardWidth] = useState(0);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-  const visibleCount = 3;
+
+  const getVisibleCount = () => {
+    if (window.innerWidth < 640) return 1;
+    return 3;
+  };
 
   useEffect(() => {
     const handleResize = () => {
       const isMobile = window.innerWidth < 640;
-      const width = isMobile ? window.innerWidth * 0.9 : 320; // sm:w-80 = 320px
-      setCardWidth(width + 24); // includes 1.5rem = 24px for margin
+      const width = isMobile ? window.innerWidth * 0.9 : 320; // 320px for desktop cards
+      setCardWidth(width + 24); // 24px = margin
     };
+
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleNext = () => {
+    const visibleCount = getVisibleCount();
     if (startIndex + visibleCount < projects.length) {
       setStartIndex(startIndex + 1);
     }
@@ -57,7 +63,7 @@ const Projects = () => {
     >
       <h2 className="text-3xl font-bold mb-10">Projects</h2>
 
-      <div className="flex items-center justify-center space-x-4">
+      <div className="flex items-center justify-center gap-2">
         <button
           onClick={handlePrev}
           disabled={startIndex === 0}
@@ -74,10 +80,15 @@ const Projects = () => {
             {projects.map((project, index) => {
               const isExpanded = expandedIndex === index;
               const shortText = project.description.slice(0, 200);
+
               return (
                 <div
                   key={index}
-                  className="bg-white rounded-2xl shadow-md p-6 text-left w-[90vw] sm:w-80 flex-shrink-0 mx-3 hover:shadow-lg transition duration-300"
+                  className="bg-white rounded-2xl shadow-md p-6 text-left flex-shrink-0 hover:shadow-lg transition duration-300"
+                  style={{
+                    width: window.innerWidth < 640 ? "90vw" : "320px",
+                    marginRight: "24px",
+                  }}
                 >
                   <h3 className="text-xl font-semibold mb-2">
                     {project.title}
@@ -107,7 +118,7 @@ const Projects = () => {
 
         <button
           onClick={handleNext}
-          disabled={startIndex + visibleCount >= projects.length}
+          disabled={startIndex + getVisibleCount() >= projects.length}
           className="text-2xl px-3 py-1 rounded hover:bg-gray-200 disabled:opacity-30"
         >
           →

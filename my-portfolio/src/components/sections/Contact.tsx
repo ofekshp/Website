@@ -2,7 +2,7 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { FaWhatsapp } from "react-icons/fa";
 import {
-  getGmailComposeLink,
+  getPreFilledGmailLink,
   getWhatsAppLink,
 } from "../../services/contactService";
 
@@ -20,7 +20,7 @@ const Contact = () => {
       {/* Contact Buttons */}
       <div className="flex flex-wrap justify-center gap-4 mb-10">
         <a
-          href={getGmailComposeLink()}
+          href={getPreFilledGmailLink()}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 bg-gray-900 text-white px-5 py-2 rounded-full hover:bg-gray-700 transition"
