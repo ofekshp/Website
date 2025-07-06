@@ -25,31 +25,21 @@ const Projects = () => {
   const [startIndex, setStartIndex] = useState(0);
   const [cardWidth, setCardWidth] = useState(0);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-
-  const getVisibleCount = () => {
-    if (window.innerWidth < 640) return 1;
-    if (window.innerWidth < 1024) return 2;
-    return 3;
-  };
+  const visibleCount = 3;
 
   useEffect(() => {
     const handleResize = () => {
-      const width =
-        window.innerWidth < 640
-          ? window.innerWidth * 0.9 + 24
-          : window.innerWidth < 1024
-          ? 384 + 24
-          : 320 + 24;
-      setCardWidth(width);
+      const isMobile = window.innerWidth < 640;
+      const width = isMobile ? window.innerWidth * 0.9 : 320; // sm:w-80 = 320px
+      setCardWidth(width + 24); // includes 1.5rem = 24px for margin
     };
-
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleNext = () => {
-    if (startIndex + getVisibleCount() < projects.length) {
+    if (startIndex + visibleCount < projects.length) {
       setStartIndex(startIndex + 1);
     }
   };
@@ -68,7 +58,6 @@ const Projects = () => {
       <h2 className="text-3xl font-bold mb-10">Projects</h2>
 
       <div className="flex items-center justify-center space-x-4">
-        {/* ← Prev Button */}
         <button
           onClick={handlePrev}
           disabled={startIndex === 0}
@@ -77,19 +66,14 @@ const Projects = () => {
           ←
         </button>
 
-        {/* Carousel View */}
         <div className="w-full max-w-full sm:max-w-[1032px] overflow-hidden mx-auto px-2">
           <div
-            className="flex transition-transform duration-500 ease-in-out pr-3"
-            style={{
-              transform: `translateX(-${startIndex * cardWidth}px)`,
-              width: `${projects.length * cardWidth}px`,
-            }}
+            className="flex transition-transform duration-500 ease-in-out"
+            style={{ transform: `translateX(-${startIndex * cardWidth}px)` }}
           >
             {projects.map((project, index) => {
               const isExpanded = expandedIndex === index;
               const shortText = project.description.slice(0, 200);
-
               return (
                 <div
                   key={index}
@@ -121,10 +105,9 @@ const Projects = () => {
           </div>
         </div>
 
-        {/* → Next Button */}
         <button
           onClick={handleNext}
-          disabled={startIndex + getVisibleCount() >= projects.length}
+          disabled={startIndex + visibleCount >= projects.length}
           className="text-2xl px-3 py-1 rounded hover:bg-gray-200 disabled:opacity-30"
         >
           →
