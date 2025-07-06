@@ -19,6 +19,24 @@ const projects = [
       "A dynamic full-stack forum for tech enthusiasts, built using the MVC architecture. Features include user authentication, post sharing, and interactive Swagger API documentation. Integrates Bing’s REST API to display the latest 10 technology articles. Built with React + TypeScript on the client, Node.js on the server, and MongoDB for data storage.",
     github: "https://github.com/zikili/DrComputerWeb",
   },
+  {
+    title: "Test 1 – Sample Project",
+    description:
+      "This is a sample project description for testing purposes. It showcases the basic structure and functionality of the project.",
+    github: "",
+  },
+  {
+    title: "Test 2 – Sample Project",
+    description:
+      "This is a sample project description for testing purposes. It showcases the basic structure and functionality of the project.",
+    github: "",
+  },
+  {
+    title: "Test 3 – Sample Project",
+    description:
+      "This is a sample project description for testing purposes. It showcases the basic structure and functionality of the project.",
+    github: "",
+  },
 ];
 
 const Projects = () => {
@@ -67,7 +85,7 @@ const Projects = () => {
         <button
           onClick={handlePrev}
           disabled={startIndex === 0}
-          className="text-2xl px-3 py-1 rounded hover:bg-gray-200 disabled:opacity-30"
+          className="text-4xl px-3 py-1 rounded hover:bg-gray-200 disabled:opacity-30"
         >
           ←
         </button>
@@ -119,7 +137,7 @@ const Projects = () => {
         <button
           onClick={handleNext}
           disabled={startIndex + getVisibleCount() >= projects.length}
-          className="text-2xl px-3 py-1 rounded hover:bg-gray-200 disabled:opacity-30"
+          className="text-4xl px-3 py-1 rounded hover:bg-gray-200 disabled:opacity-30"
         >
           →
         </button>

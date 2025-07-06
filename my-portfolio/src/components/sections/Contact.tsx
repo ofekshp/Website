@@ -1,46 +1,38 @@
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
 import { FaWhatsapp } from "react-icons/fa";
-import {
-  getPreFilledGmailLink,
-  getWhatsAppLink,
-} from "../../services/contactService";
+import { getWhatsAppLink } from "../../services/contactService";
+import ContactForm from "./ContactForm";
 
 const Contact = () => {
   return (
     <section
       id="contact"
-      className="py-16 px-4 sm:px-8 bg-white text-center text-gray-800"
+      className="py-16 px-4 sm:px-8 bg-white text-gray-800 text-center"
     >
-      <h2 className="text-3xl font-bold mb-6">Contact Me</h2>
-      <p className="mb-10">
-        Feel free to reach out via email or connect with me on social media.
+      <h2 className="text-3xl font-bold mb-4">Contact Me</h2>
+      <p className="mb-10 text-gray-600">
+        Feel free to send a message using the form or reach out via WhatsApp.
       </p>
 
-      {/* Contact Buttons */}
-      <div className="flex flex-wrap justify-center gap-4 mb-10">
-        <a
-          href={getPreFilledGmailLink()}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 bg-gray-900 text-white px-5 py-2 rounded-full hover:bg-gray-700 transition"
-        >
-          <MdEmail className="text-lg" />
-          Send Email
-        </a>
+      {/* Contact Form + WhatsApp Side by Side */}
+      <div className="flex flex-col lg:flex-row justify-center items-start gap-10 max-w-4xl mx-auto">
+        <div className="w-full max-w-md mx-auto">
+          <ContactForm />
+        </div>
+
         <a
           href={getWhatsAppLink()}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 bg-green-500 text-white px-5 py-2 rounded-full hover:bg-green-600 transition"
+          className="flex items-center justify-center gap-3 bg-green-500 hover:bg-green-600 text-white font-medium text-lg px-6 py-3 rounded-full shadow-md transition w-full max-w-xs mx-auto lg:mx-0"
         >
-          <FaWhatsapp className="text-lg" />
+          <FaWhatsapp className="text-2xl" />
           WhatsApp Me
         </a>
       </div>
 
       {/* Social Icons */}
-      <div className="flex justify-center gap-6 text-3xl text-black mt-10">
+      <div className="flex justify-center gap-6 text-3xl text-black mt-16">
         <a
           href="https://github.com/ofekshp"
           target="_blank"
