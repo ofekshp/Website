@@ -18,46 +18,38 @@ const projects = [
     description:
       "A dynamic full-stack forum for tech enthusiasts, built using the MVC architecture. Features include user authentication, post sharing, and interactive Swagger API documentation. Integrates Bing’s REST API to display the latest 10 technology articles. Built with React + TypeScript on the client, Node.js on the server, and MongoDB for data storage.",
     github: "https://github.com/zikili/DrComputerWeb",
-   },
-  // {
-  //   title: "Test Project 1 – Placeholder ",
-  //   description:
-  //     "This is a placeholder project description. Replace this with actual project details.",
-  //   github: ""
-  // },
-  // {
-  //   title: "Test Project 2 – Placeholder",
-  //   description:
-  //     "This is another placeholder project description. Replace this with actual project details.",
-  //   github: ""
-  // },
-  // {
-  //   title: "Test Project 3 – Placeholder",
-  //   description:
-  //     "This is yet another placeholder project description. Replace this with actual project details.",
-  //   github: ""
-  // },
+  },
 ];
 
 const Projects = () => {
   const [startIndex, setStartIndex] = useState(0);
-  const visibleCount = 3;
-
   const [cardWidth, setCardWidth] = useState(0);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
+  const getVisibleCount = () => {
+    if (window.innerWidth < 640) return 1;
+    if (window.innerWidth < 1024) return 2;
+    return 3;
+  };
 
   useEffect(() => {
     const handleResize = () => {
       const width =
-        window.innerWidth < 640 ? window.innerWidth * 0.9 + 24 : 320 + 24;
+        window.innerWidth < 640
+          ? window.innerWidth * 0.9 + 24
+          : window.innerWidth < 1024
+          ? 384 + 24
+          : 320 + 24;
       setCardWidth(width);
     };
+
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleNext = () => {
-    if (startIndex + visibleCount < projects.length) {
+    if (startIndex + getVisibleCount() < projects.length) {
       setStartIndex(startIndex + 1);
     }
   };
@@ -76,6 +68,7 @@ const Projects = () => {
       <h2 className="text-3xl font-bold mb-10">Projects</h2>
 
       <div className="flex items-center justify-center space-x-4">
+        {/* ← Prev Button */}
         <button
           onClick={handlePrev}
           disabled={startIndex === 0}
@@ -84,38 +77,54 @@ const Projects = () => {
           ←
         </button>
 
+        {/* Carousel View */}
         <div className="w-full max-w-full sm:max-w-[1032px] overflow-hidden mx-auto px-2">
           <div
             className="flex transition-transform duration-500 ease-in-out pr-3"
             style={{
               transform: `translateX(-${startIndex * cardWidth}px)`,
+              width: `${projects.length * cardWidth}px`,
             }}
           >
-            {projects.map((project, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-2xl shadow-md p-6 text-left w-[90vw] sm:w-80 flex-shrink-0 mx-3 hover:shadow-lg transition duration-300"
-              >
-                <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-                <p className="mb-4 text-sm text-gray-700">
-                  {project.description}
-                </p>
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 font-medium hover:underline"
+            {projects.map((project, index) => {
+              const isExpanded = expandedIndex === index;
+              const shortText = project.description.slice(0, 200);
+
+              return (
+                <div
+                  key={index}
+                  className="bg-white rounded-2xl shadow-md p-6 text-left w-[90vw] sm:w-80 flex-shrink-0 mx-3 hover:shadow-lg transition duration-300"
                 >
-                  View on GitHub →
-                </a>
-              </div>
-            ))}
+                  <h3 className="text-xl font-semibold mb-2">
+                    {project.title}
+                  </h3>
+                  <p className="mb-2 text-sm text-gray-700">
+                    {isExpanded ? project.description : shortText + "..."}
+                  </p>
+                  <button
+                    onClick={() => setExpandedIndex(isExpanded ? null : index)}
+                    className="text-blue-600 text-sm mb-4 hover:underline"
+                  >
+                    {isExpanded ? "Show less" : "Read more"}
+                  </button>
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block text-blue-600 font-medium hover:underline"
+                  >
+                    View on GitHub →
+                  </a>
+                </div>
+              );
+            })}
           </div>
         </div>
 
+        {/* → Next Button */}
         <button
           onClick={handleNext}
-          disabled={startIndex + visibleCount >= projects.length}
+          disabled={startIndex + getVisibleCount() >= projects.length}
           className="text-2xl px-3 py-1 rounded hover:bg-gray-200 disabled:opacity-30"
         >
           →
