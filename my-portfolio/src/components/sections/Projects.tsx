@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useEffect, useState } from "react";
 
 const projects = [
   {
@@ -18,13 +18,43 @@ const projects = [
     description:
       "A dynamic full-stack forum for tech enthusiasts, built using the MVC architecture. Features include user authentication, post sharing, and interactive Swagger API documentation. Integrates Bing’s REST API to display the latest 10 technology articles. Built with React + TypeScript on the client, Node.js on the server, and MongoDB for data storage.",
     github: "https://github.com/zikili/DrComputerWeb",
-  },
+   },
+  // {
+  //   title: "Test Project 1 – Placeholder ",
+  //   description:
+  //     "This is a placeholder project description. Replace this with actual project details.",
+  //   github: ""
+  // },
+  // {
+  //   title: "Test Project 2 – Placeholder",
+  //   description:
+  //     "This is another placeholder project description. Replace this with actual project details.",
+  //   github: ""
+  // },
+  // {
+  //   title: "Test Project 3 – Placeholder",
+  //   description:
+  //     "This is yet another placeholder project description. Replace this with actual project details.",
+  //   github: ""
+  // },
 ];
 
 const Projects = () => {
   const [startIndex, setStartIndex] = useState(0);
   const visibleCount = 3;
-  const cardWidth = 320 + 24; // 320px + 24px margin
+
+  const [cardWidth, setCardWidth] = useState(0);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width =
+        window.innerWidth < 640 ? window.innerWidth * 0.9 + 24 : 320 + 24;
+      setCardWidth(width);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleNext = () => {
     if (startIndex + visibleCount < projects.length) {
@@ -54,7 +84,7 @@ const Projects = () => {
           ←
         </button>
 
-        <div className="w-full max-w-[1032px] overflow-hidden relative">
+        <div className="w-full max-w-full sm:max-w-[1032px] overflow-hidden mx-auto px-2">
           <div
             className="flex transition-transform duration-500 ease-in-out pr-3"
             style={{
@@ -64,7 +94,7 @@ const Projects = () => {
             {projects.map((project, index) => (
               <div
                 key={index}
-                className="bg-white rounded-2xl shadow-md p-6 text-left w-80 flex-shrink-0 mx-3 hover:shadow-lg transition duration-300"
+                className="bg-white rounded-2xl shadow-md p-6 text-left w-[90vw] sm:w-80 flex-shrink-0 mx-3 hover:shadow-lg transition duration-300"
               >
                 <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
                 <p className="mb-4 text-sm text-gray-700">
