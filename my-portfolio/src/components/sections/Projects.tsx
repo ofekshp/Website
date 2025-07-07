@@ -73,79 +73,85 @@ const Projects = () => {
   };
 
   return (
-    <section
-      id="projects"
-      className="py-16 px-4 sm:px-8 bg-gray-100 text-gray-900 text-center"
-    >
-      <h2 className="text-3xl font-bold mb-10">Projects</h2>
+  <section
+    id="projects"
+    className="py-16 px-4 sm:px-8 bg-gray-100 text-gray-900 text-center"
+  >
+    <h2 className="text-3xl font-bold mb-10">Projects</h2>
 
-      <div className="flex items-center justify-center gap-2">
+    <div className="flex flex-col items-center justify-center w-full">
+      {/* Carousel */}
+      <div className="w-full max-w-full sm:max-w-[1032px] overflow-hidden mx-auto px-2">
+        <div
+          className="flex transition-transform duration-500 ease-in-out"
+          style={{ transform: `translateX(-${startIndex * cardWidth}px)` }}
+        >
+          {projects.map((project, index) => {
+            const isExpanded = expandedIndex === index;
+            const shortText = project.description.slice(0, 200);
+            const isLast = index === projects.length - 1;
+
+            return (
+              <div
+                key={index}
+                className="bg-white rounded-2xl shadow-md p-6 text-left flex-shrink-0 hover:shadow-lg transition duration-300"
+                style={{
+                  width: isMobile ? `${cardWidth - 24}px` : "320px",
+                  marginRight: isLast ? "0px" : "24px",
+                }}
+              >
+                <h3 className="text-xl font-semibold mb-2">
+                  {project.title}
+                </h3>
+                <p className="mb-2 text-sm text-gray-700">
+                  {isExpanded ? project.description : shortText + "..."}
+                </p>
+                <button
+                  onClick={() =>
+                    setExpandedIndex(isExpanded ? null : index)
+                  }
+                  className="text-blue-600 text-sm mb-4 hover:underline"
+                >
+                  {isExpanded ? "Show less" : "Read more"}
+                </button>
+                {project.github && (
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block text-blue-600 font-medium hover:underline"
+                  >
+                    View on GitHub →
+                  </a>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Arrows below */}
+      <div className="mt-4 flex items-center gap-4">
         <button
           onClick={handlePrev}
           disabled={startIndex === 0}
-          className="text-4xl px-3 py-1 rounded hover:bg-gray-200 disabled:opacity-30"
+          className="text-4xl px-4 py-2 rounded hover:bg-gray-200 disabled:opacity-30"
         >
           ←
         </button>
 
-        <div className="w-full max-w-full sm:max-w-[1032px] overflow-hidden mx-auto px-2">
-          <div
-            className="flex transition-transform duration-500 ease-in-out"
-            style={{ transform: `translateX(-${startIndex * cardWidth}px)` }}
-          >
-            {projects.map((project, index) => {
-              const isExpanded = expandedIndex === index;
-              const shortText = project.description.slice(0, 200);
-
-              return (
-                <div
-                  key={index}
-                  className="bg-white rounded-2xl shadow-md p-6 text-left flex-shrink-0 hover:shadow-lg transition duration-300"
-                  style={{
-                    width: isMobile ? `${cardWidth - 24}px` : "320px",
-                    marginRight: "24px",
-                  }}
-                >
-                  <h3 className="text-xl font-semibold mb-2">
-                    {project.title}
-                  </h3>
-                  <p className="mb-2 text-sm text-gray-700">
-                    {isExpanded ? project.description : shortText + "..."}
-                  </p>
-                  <button
-                    onClick={() =>
-                      setExpandedIndex(isExpanded ? null : index)
-                    }
-                    className="text-blue-600 text-sm mb-4 hover:underline"
-                  >
-                    {isExpanded ? "Show less" : "Read more"}
-                  </button>
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block text-blue-600 font-medium hover:underline"
-                    >
-                      View on GitHub →
-                    </a>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
         <button
           onClick={handleNext}
           disabled={startIndex + visibleCount >= projects.length}
-          className="text-4xl px-3 py-1 rounded hover:bg-gray-200 disabled:opacity-30"
+          className="text-4xl px-4 py-2 rounded hover:bg-gray-200 disabled:opacity-30"
         >
           →
         </button>
       </div>
-    </section>
-  );
+    </div>
+  </section>
+);
+
 };
 
 export default Projects;
