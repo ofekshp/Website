@@ -42,35 +42,33 @@ const projects = [
 const Projects = () => {
   const [startIndex, setStartIndex] = useState(0);
   const [cardWidth, setCardWidth] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(3);
+  const [isMobile, setIsMobile] = useState(false);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
-  const getVisibleCount = () => {
-    if (window.innerWidth < 640) return 1;
-    return 3;
-  };
-
   useEffect(() => {
-    const handleResize = () => {
-      const isMobile = window.innerWidth < 640;
-      const width = isMobile ? window.innerWidth * 0.9 : 320; // 320px for desktop cards
-      setCardWidth(width + 24); // 24px = margin
+    const updateLayout = () => {
+      const mobile = window.innerWidth < 640;
+      const width = mobile ? window.innerWidth * 0.9 : 320;
+      setCardWidth(width + 24);
+      setVisibleCount(mobile ? 1 : 3);
+      setIsMobile(mobile);
     };
 
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    updateLayout();
+    window.addEventListener("resize", updateLayout);
+    return () => window.removeEventListener("resize", updateLayout);
   }, []);
 
   const handleNext = () => {
-    const visibleCount = getVisibleCount();
     if (startIndex + visibleCount < projects.length) {
-      setStartIndex(startIndex + 1);
+      setStartIndex((prev) => prev + 1);
     }
   };
 
   const handlePrev = () => {
     if (startIndex > 0) {
-      setStartIndex(startIndex - 1);
+      setStartIndex((prev) => prev - 1);
     }
   };
 
@@ -104,7 +102,7 @@ const Projects = () => {
                   key={index}
                   className="bg-white rounded-2xl shadow-md p-6 text-left flex-shrink-0 hover:shadow-lg transition duration-300"
                   style={{
-                    width: window.innerWidth < 640 ? "90vw" : "320px",
+                    width: isMobile ? `${cardWidth - 24}px` : "320px",
                     marginRight: "24px",
                   }}
                 >
@@ -115,19 +113,23 @@ const Projects = () => {
                     {isExpanded ? project.description : shortText + "..."}
                   </p>
                   <button
-                    onClick={() => setExpandedIndex(isExpanded ? null : index)}
+                    onClick={() =>
+                      setExpandedIndex(isExpanded ? null : index)
+                    }
                     className="text-blue-600 text-sm mb-4 hover:underline"
                   >
                     {isExpanded ? "Show less" : "Read more"}
                   </button>
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block text-blue-600 font-medium hover:underline"
-                  >
-                    View on GitHub →
-                  </a>
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block text-blue-600 font-medium hover:underline"
+                    >
+                      View on GitHub →
+                    </a>
+                  )}
                 </div>
               );
             })}
@@ -136,7 +138,7 @@ const Projects = () => {
 
         <button
           onClick={handleNext}
-          disabled={startIndex + getVisibleCount() >= projects.length}
+          disabled={startIndex + visibleCount >= projects.length}
           className="text-4xl px-3 py-1 rounded hover:bg-gray-200 disabled:opacity-30"
         >
           →
