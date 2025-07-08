@@ -12,24 +12,26 @@ const techs = [
 const About = () => (
   <section
     id="about"
-    className="py-16 px-4 sm:px-8 bg-white text-gray-800 text-center"
+    className="py-20 px-6 sm:px-10 bg-gradient-to-br from-amber-50 via-stone-100 to-amber-100 text-center text-brown-900"
   >
-    <h2 className="text-2xl sm:text-3xl font-bold mb-6">About Me</h2>
-    <p className="max-w-md sm:max-w-3xl mx-auto text-base sm:text-lg mb-6">
+    <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 text-amber-900">
+      About Me
+    </h2>
+    <p className="max-w-2xl mx-auto text-base sm:text-lg text-brown-800 leading-relaxed mb-8">
       I'm a Computer Science graduate with strong experience in full-stack
-      development. I specialize in building web apps with modern technologies
-      including React, Node.js, and MongoDB. I’m passionate about clean code and
-      building user-focused interfaces.
+      development. I specialize in crafting modern web apps with technologies
+      like React, Node.js, and MongoDB — all while keeping performance,
+      scalability, and clean UI in mind.
     </p>
 
-    <div className="flex justify-center flex-wrap gap-6 mt-8">
+    <div className="flex justify-center flex-wrap gap-6">
       {techs.map((tech, index) => (
         <div
           key={index}
-          className="relative group text-3xl sm:text-4xl cursor-pointer w-16 h-16 flex items-center justify-center"
+          className="group relative w-16 h-16 flex items-center justify-center text-3xl sm:text-4xl bg-white bg-opacity-90 text-amber-800 rounded-xl shadow-md hover:shadow-lg transition-transform transform hover:-translate-y-1"
         >
           {tech.icon}
-          <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10 whitespace-nowrap">
+          <span className="absolute -top-8 left-1/2 -translate-x-1/2 text-xs bg-amber-700 text-white px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap z-10">
             {tech.label}
           </span>
         </div>
