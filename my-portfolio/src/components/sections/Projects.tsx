@@ -45,12 +45,13 @@ const Projects = () => {
   const [visibleCount, setVisibleCount] = useState(3);
   const [isMobile, setIsMobile] = useState(false);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-  
+  const peekSize = 50;
+
   useEffect(() => {
     const updateLayout = () => {
       const mobile = window.innerWidth < 640;
-      const width = mobile ? window.innerWidth * 0.9 : 320;
-      setCardWidth(width + 24);
+      const width = mobile ? window.innerWidth * 0.8 : 320;
+      setCardWidth(width);
       setVisibleCount(mobile ? 1 : 3);
       setIsMobile(mobile);
     };
@@ -73,96 +74,95 @@ const Projects = () => {
   };
 
   return (
-  <section
-    id="projects"
-    className="py-16 px-4 sm:px-8 bg-gray-100 text-gray-900 text-center"
-  >
-    <h2 className="text-3xl font-bold mb-10">Projects</h2>
+    <section
+      id="projects"
+      className="py-16 px-4 sm:px-8 bg-gray-100 text-gray-900 text-center"
+    >
+      <h2 className="text-3xl font-bold mb-10">Projects</h2>
 
-    <div className="flex flex-col items-center justify-center w-full">
-      {/* Carousel */}
-      <div
-        className="w-full relative mx-auto transition-all duration-300"
-        style={{
-          maxWidth: isMobile
-            ? "100%"
-            : startIndex + visibleCount < projects.length
-            ? "1100px" // peek at next card
-            : "1008px", // just 3 cards with proper spacing
-          overflow: "hidden",
-        }}
-      >
+      <div className="flex flex-col items-center justify-center w-full">
+        {/* Carousel */}
         <div
-          className="flex transition-transform duration-500 ease-in-out"
-          style={{ transform: `translateX(-${startIndex * cardWidth}px)` }}
+          className="w-full relative mx-auto transition-all duration-300"
+          style={{
+            maxWidth: isMobile
+              ? startIndex + visibleCount < projects.length
+                ? `${cardWidth + peekSize}px`
+                : `${cardWidth}px`
+              : startIndex + visibleCount < projects.length
+              ? "1100px"
+              : "1008px",
+            overflow: "hidden",
+          }}
         >
-          {projects.map((project, index) => {
-            const isExpanded = expandedIndex === index;
-            const shortText = project.description.slice(0, 200);
-            const isLast = index === projects.length - 1;
+          <div
+            className="flex transition-transform duration-500 ease-in-out"
+            style={{
+              transform: `translateX(-${startIndex * (cardWidth + 24)}px)`,
+            }}
+          >
+            {projects.map((project, index) => {
+              const isExpanded = expandedIndex === index;
+              const shortText = project.description.slice(0, 200);
 
-            return (
-              <div
-                key={index}
-                className="bg-white rounded-2xl shadow-md p-6 text-left flex-shrink-0 hover:shadow-lg transition duration-300"
-                style={{
-                  width: isMobile ? `${cardWidth - 24}px` : "320px",
-                  marginRight: isLast ? "0px" : "24px",
-                }}
-              >
-                <h3 className="text-xl font-semibold mb-2">
-                  {project.title}
-                </h3>
-                <p className="mb-2 text-sm text-gray-700">
-                  {isExpanded ? project.description : shortText + "..."}
-                </p>
-                <button
-                  onClick={() =>
-                    setExpandedIndex(isExpanded ? null : index)
-                  }
-                  className="text-blue-600 text-sm mb-4 hover:underline"
+              return (
+                <div
+                  key={index}
+                  className="bg-white rounded-2xl shadow-md p-6 text-left flex-shrink-0 hover:shadow-lg transition duration-300"
+                  style={{
+                    width: `${cardWidth}px`,
+                    marginRight: index === projects.length - 1 ? "0px" : "24px",
+                  }}
                 >
-                  {isExpanded ? "Show less" : "Read more"}
-                </button>
-                {project.github && (
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block text-blue-600 font-medium hover:underline"
+                  <h3 className="text-xl font-semibold mb-2">
+                    {project.title}
+                  </h3>
+                  <p className="mb-2 text-sm text-gray-700">
+                    {isExpanded ? project.description : shortText + "..."}
+                  </p>
+                  <button
+                    onClick={() => setExpandedIndex(isExpanded ? null : index)}
+                    className="text-blue-600 text-sm mb-4 hover:underline"
                   >
-                    View on GitHub →
-                  </a>
-                )}
-              </div>
-            );
-          })}
+                    {isExpanded ? "Show less" : "Read more"}
+                  </button>
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block text-blue-600 font-medium hover:underline"
+                    >
+                      View on GitHub →
+                    </a>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Arrows below */}
+        <div className="mt-4 flex items-center gap-4">
+          <button
+            onClick={handlePrev}
+            disabled={startIndex === 0}
+            className="text-4xl px-4 py-2 rounded hover:bg-gray-200 disabled:opacity-30"
+          >
+            ←
+          </button>
+
+          <button
+            onClick={handleNext}
+            disabled={startIndex + visibleCount >= projects.length}
+            className="text-4xl px-4 py-2 rounded hover:bg-gray-200 disabled:opacity-30"
+          >
+            →
+          </button>
         </div>
       </div>
-
-      {/* Arrows below */}
-      <div className="mt-4 flex items-center gap-4">
-        <button
-          onClick={handlePrev}
-          disabled={startIndex === 0}
-          className="text-4xl px-4 py-2 rounded hover:bg-gray-200 disabled:opacity-30"
-        >
-          ←
-        </button>
-
-        <button
-          onClick={handleNext}
-          disabled={startIndex + visibleCount >= projects.length}
-          className="text-4xl px-4 py-2 rounded hover:bg-gray-200 disabled:opacity-30"
-        >
-          →
-        </button>
-      </div>
-    </div>
-  </section>
-);
-
-
+    </section>
+  );
 };
 
 export default Projects;
