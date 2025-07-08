@@ -1,46 +1,36 @@
 const Skills = () => (
   <section
     id="skills"
-    className="py-12 px-4 sm:px-6 lg:px-8 bg-white text-gray-900 text-center"
+    className="py-20 px-6 sm:px-10 bg-gradient-to-br from-amber-50 via-stone-100 to-amber-100 text-brown-900 text-center"
   >
-    <details className="group max-w-xl mx-auto text-left bg-gray-50 border border-gray-200 p-5 rounded-lg shadow-sm transition-all duration-300">
-      <summary className="cursor-pointer list-none flex items-center justify-between font-semibold text-lg sm:text-xl text-gray-800">
-        <span>Technical Skills</span>
-        <svg
-          className="ml-2 h-5 w-5 transform transition-transform duration-300 group-open:rotate-180"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 9l-7 7-7-7"
-          />
-        </svg>
-      </summary>
+    <div className="max-w-3xl mx-auto bg-white border border-amber-200 rounded-2xl shadow-md p-6 sm:p-10">
+      <h2 className="text-3xl sm:text-4xl font-extrabold text-amber-900 mb-6 text-center">
+        Technical Skills
+      </h2>
 
-      <ul className="list-disc list-inside mt-4 space-y-2 text-sm sm:text-base leading-relaxed text-gray-700">
+      <ul className="list-disc list-inside space-y-4 text-base sm:text-lg text-brown-800 leading-relaxed text-left">
         <li>
-          <strong>Fullstack Development:</strong> React, TypeScript, Node.js,
-          Express.js
+          <strong className="text-brown-900">Fullstack Development:</strong>{" "}
+          React, TypeScript, Node.js, Express.js
         </li>
         <li>
-          <strong>Programming Languages:</strong> Java, C, C++, JavaScript,
-          Python
+          <strong className="text-brown-900">Programming Languages:</strong>{" "}
+          Java, C, C++, JavaScript, Python
         </li>
         <li>
-          <strong>Databases:</strong> MongoDB, Firebase
+          <strong className="text-brown-900">Databases:</strong> MongoDB,
+          Firebase
         </li>
         <li>
-          <strong>APIs & Documentation:</strong> REST API, Swagger
+          <strong className="text-brown-900">APIs & Documentation:</strong> REST
+          API, Swagger
         </li>
         <li>
-          <strong>Styling & Tools:</strong> Tailwind CSS, Git
+          <strong className="text-brown-900">Styling & Tools:</strong> Tailwind
+          CSS, Git
         </li>
       </ul>
-    </details>
+    </div>
   </section>
 );
 
