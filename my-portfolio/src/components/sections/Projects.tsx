@@ -45,7 +45,7 @@ const Projects = () => {
   const [visibleCount, setVisibleCount] = useState(3);
   const [isMobile, setIsMobile] = useState(false);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-
+  
   useEffect(() => {
     const updateLayout = () => {
       const mobile = window.innerWidth < 640;
@@ -81,7 +81,17 @@ const Projects = () => {
 
     <div className="flex flex-col items-center justify-center w-full">
       {/* Carousel */}
-      <div className="w-full max-w-full sm:max-w-[1032px] overflow-hidden mx-auto px-2">
+      <div
+        className="w-full relative mx-auto transition-all duration-300"
+        style={{
+          maxWidth: isMobile
+            ? "100%"
+            : startIndex + visibleCount < projects.length
+            ? "1100px" // peek at next card
+            : "1008px", // just 3 cards with proper spacing
+          overflow: "hidden",
+        }}
+      >
         <div
           className="flex transition-transform duration-500 ease-in-out"
           style={{ transform: `translateX(-${startIndex * cardWidth}px)` }}
@@ -151,6 +161,7 @@ const Projects = () => {
     </div>
   </section>
 );
+
 
 };
 
