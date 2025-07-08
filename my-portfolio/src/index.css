@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Remove tap highlights and focus/active styles on mobile */
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none; /* iOS long-press suppression */
+  -webkit-user-select: none; /* Avoid selection during tap */
+  touch-action: manipulation; /* Prevent default double-tap zoom or delay */
+}
+
+/* Erase any focus styling */
+button:focus,
+button:active,
+a:focus,
+a:active {
+  outline: none !important;
+  outline-offset: 0 !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
+
+/* Optional: Prevent pointer cursor on mobile */
+@media (hover: none) {
+  button,
+  a {
+    cursor: default;
+  }
+}

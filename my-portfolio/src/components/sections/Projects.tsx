@@ -144,18 +144,48 @@ const Projects = () => {
 
         {/* Arrows below */}
         <div className="mt-4 flex items-center gap-4">
+          {/* Left Arrow (unclickable when disabled) */}
           <button
-            onClick={handlePrev}
+            onClick={(e) => {
+              handlePrev();
+              (e.currentTarget as HTMLButtonElement).blur();
+            }}
             disabled={startIndex === 0}
-            className="text-4xl px-4 py-2 rounded hover:bg-gray-200 disabled:opacity-30"
+            className={`
+    text-4xl px-4 py-2 rounded
+    hover:bg-gray-200
+    focus:outline-none focus:ring-0 focus-visible:ring-0
+    active:outline-none active:ring-0 active:bg-transparent
+    outline-none ring-0 select-none
+    ${
+      startIndex === 0
+        ? "opacity-30 cursor-not-allowed pointer-events-none"
+        : ""
+    }
+  `}
           >
             ←
           </button>
 
+          {/* Right Arrow (unclickable when disabled) */}
           <button
-            onClick={handleNext}
+            onClick={(e) => {
+              handleNext();
+              (e.currentTarget as HTMLButtonElement).blur();
+            }}
             disabled={startIndex + visibleCount >= projects.length}
-            className="text-4xl px-4 py-2 rounded hover:bg-gray-200 disabled:opacity-30"
+            className={`
+    text-4xl px-4 py-2 rounded
+    hover:bg-gray-200
+    focus:outline-none focus:ring-0 focus-visible:ring-0
+    active:outline-none active:ring-0 active:bg-transparent
+    outline-none ring-0 select-none
+    ${
+      startIndex + visibleCount >= projects.length
+        ? "opacity-30 cursor-not-allowed pointer-events-none"
+        : ""
+    }
+  `}
           >
             →
           </button>
