@@ -8,12 +8,27 @@ const Hero = () => (
     <p className="text-sm sm:text-lg max-w-md sm:max-w-xl mb-6">
       Crafting performant web applications using React, Node.js, and MongoDB.
     </p>
-    <a
-      href="#projects"
-      className="bg-white text-gray-900 px-6 py-3 w-full sm:w-auto rounded-full font-semibold hover:bg-gray-200 transition"
-    >
-      View Projects
-    </a>
+    <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+      {/* View Projects Button */}
+      <a
+        href="#projects"
+        className="w-full sm:w-auto text-center bg-white text-gray-900 px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition text-base leading-tight"
+        style={{ minHeight: "48px", lineHeight: "1.25rem" }}
+      >
+        View Projects
+      </a>
+
+      {/* View CV Button */}
+      <a
+        href="/OfekShpirerCV.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-full sm:w-auto text-center bg-gradient-to-r from-purple-600 to-pink-500 text-white px-6 py-3 rounded-full font-semibold shadow-lg hover:from-purple-700 hover:to-pink-600 transition text-base leading-tight"
+        style={{ minHeight: "48px", lineHeight: "1.25rem" }}
+      >
+        📄 View CV
+      </a>
+    </div>
   </section>
 );
 
