@@ -11,7 +11,7 @@ const Skills = () => (
       <ul className="list-disc list-inside space-y-4 text-base sm:text-lg text-brown-800 leading-relaxed text-left">
         <li>
           <strong className="text-brown-900">Fullstack Development:</strong>{" "}
-          React, TypeScript, Node.js, Express.js
+          React, Angular, .NET, Node.js, TypeScript, Express.js
         </li>
         <li>
           <strong className="text-brown-900">Programming Languages:</strong>{" "}
@@ -19,7 +19,7 @@ const Skills = () => (
         </li>
         <li>
           <strong className="text-brown-900">Databases:</strong> MongoDB,
-          Firebase
+          Firebase, SQL
         </li>
         <li>
           <strong className="text-brown-900">APIs & Documentation:</strong> REST

@@ -12,7 +12,7 @@ const Hero = () => (
     </p>
 
     <p className="text-sm sm:text-lg max-w-md sm:max-w-xl text-brown-700 leading-relaxed">
-      Crafting fast, scalable web apps using React, Node.js, and MongoDB.
+      Building fast, scalable web applications with React, Angular, Node.js, .NET, MongoDB, and SQL.
     </p>
 
     <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-2 animate-fadeInUp">

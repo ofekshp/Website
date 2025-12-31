@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 
 const projects = [
   {
-    title: "TableCore Dashboard – Interactive Data Table & Analytics",
+    title: "ERP Inventory & Equipment Management System (Client Project)",
     description:
-      "A feature-rich frontend dashboard built with React, TypeScript, and Tailwind CSS. Includes a dynamic, editable table with search, sorting, pagination, and modals for editing and deletion. Integrated Chart.js visualizations show user analytics by age, status, and role. Supports export to CSV and PDF, with persistent state via sessionStorage. Designed with a strong emphasis on responsive UI, accessibility, and real-time interactivity.",
-    github: "https://github.com/ofekshp/TableCore",
+      "An internal ERP system developed for a private client, built with Angular, .NET, and SQL. The system manages central and unit-level warehouses, tracks the full lifecycle of weapons and personal equipment, and supports equipment sign-offs with full audit history. Includes role-based access control with hierarchical permissions (Admin / Manager / User), structured reports for inventory, personnel, and equipment assignments, and a Telegram integration with a read-only smart agent for inventory and status queries. Designed for operational clarity, data integrity, and organizational scalability.",
+    github: null,
   },
   {
     title: "SuperEZ – Smart Shopping Comparator",
@@ -14,28 +14,16 @@ const projects = [
     github: "https://github.com/ofekshp/SuperEZ",
   },
   {
+    title: "TableCore Dashboard – Interactive Data Table & Analytics",
+    description:
+      "A feature-rich frontend dashboard built with React, TypeScript, and Tailwind CSS. Includes a dynamic, editable table with search, sorting, pagination, and modals for editing and deletion. Integrated Chart.js visualizations show user analytics by age, status, and role. Supports export to CSV and PDF, with persistent state via sessionStorage. Designed with a strong emphasis on responsive UI, accessibility, and real-time interactivity.",
+    github: "https://github.com/ofekshp/TableCore",
+  },
+  {
     title: "Dr. Computer – Tech Forum Web App",
     description:
       "A dynamic full-stack forum for tech enthusiasts, built using the MVC architecture. Features include user authentication, post sharing, and interactive Swagger API documentation. Integrates Bing’s REST API to display the latest 10 technology articles. Built with React + TypeScript on the client, Node.js on the server, and MongoDB for data storage.",
     github: "https://github.com/zikili/DrComputerWeb",
-  },
-  {
-    title: "Test 1 – Sample Project",
-    description:
-      "This is a sample project description for testing purposes. It showcases the basic structure and functionality of the project.",
-    github: "",
-  },
-  {
-    title: "Test 2 – Sample Project",
-    description:
-      "This is a sample project description for testing purposes. It showcases the basic structure and functionality of the project.",
-    github: "",
-  },
-  {
-    title: "Test 3 – Sample Project",
-    description:
-      "This is a sample project description for testing purposes. It showcases the basic structure and functionality of the project.",
-    github: "",
   },
 ];
 
